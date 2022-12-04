@@ -42,12 +42,10 @@ void showSemuaLagu(playlistLagu Q) {
     } else {
         cout << "My Playlist:" << endl;
         adr cur = Q.head;
-        while (cur != Q.tail) {
+        while (cur) {
             cout << "> " << cur->info.artis 
                 << " - " << cur->info.judul << endl;
             cur = cur->next;
         }
-        cout << "> " << cur->info.artis 
-            << " - " << cur->info.judul << endl;
     }
 }
