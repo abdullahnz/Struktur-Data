@@ -28,3 +28,15 @@ void printInfo(Stack S) {
         cout << endl;
     }
 }
+
+void findData(Stack &S, infotype x) {
+    infotype cur = pop(S);
+    while (S.top > -1 && cur != x) {
+        cur = pop(S);
+    }
+    if (cur == x) {
+        push(S, cur);
+    } else {
+        cout << "DATA TIDAK DITEMUKAN" << endl;
+    }
+}

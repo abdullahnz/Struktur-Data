@@ -14,7 +14,7 @@ struct Stack {
 void createStack(Stack &S);
 bool isEmpty(Stack S);
 bool isFull(Stack S);
-
+void findData(Stack &S, infotype x);
 void push(Stack &S, infotype x);
 int pop(Stack &S);
 void printInfo(Stack S);

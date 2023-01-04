@@ -11,10 +11,13 @@ int main() {
     
     printInfo(S);
 
-    int nPop = 7;
-    for (int i = 0; i < nPop; i++) 
-        pop(S);
+    // int nPop = 7;
+    // for (int i = 0; i < nPop; i++) 
+    //     pop(S);
 
+    // printInfo(S);
+
+    findData(S, 'I');
     printInfo(S);
 
 
