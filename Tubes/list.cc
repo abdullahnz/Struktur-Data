@@ -17,6 +17,8 @@ void List::addLink(int linkId, string name) {
     Link *newLink = new Link {
         linkId,
         name,
+        0,
+        0,
         NULL,
         NULL
     };
@@ -65,12 +67,13 @@ void showAllCustomer(List L) {
     cout << endl;
 }
 
-void addContract(int linkId, int custId, string invId, float capacity, string start, string end, List & L) {
+void addContract(int linkId, int custId, string invId, float capacity, string start, string end, List &L) {
     // find link by id
     Link *link = L.findLink(linkId);
     if (!link) {
         cout << "LINK ID NOT FOUND !" << endl;
     } else {
+        // find customer by id
         Customer *cust = L.findCustomer(custId);
         if (!cust) {
             cout << "CUSTOMER ID NOT FOUND !" << endl;
@@ -83,12 +86,24 @@ void addContract(int linkId, int custId, string invId, float capacity, string st
                 end,
                 NULL
             };
+            // add relation
             if (link->relation)
                 rel->next = link->relation;
             link->relation = rel;
+            
+            // add count customer n capacity
+            link->cntCustomer++;
+            link->cntCapacity += capacity;
         }
 
     }
+}
+
+void infoLink(Link *link) {
+    cout << link->linkId << "\t" <<
+        link->linkName << "\t\t" <<
+        link->relation->capacity << "\t\t" <<
+        link->relation->start << " - " << link->relation->end << endl;
 }
 
 void showLinkByCust(List L, int custId) {
@@ -99,51 +114,67 @@ void showLinkByCust(List L, int custId) {
         Relation *rel = curLink->relation;
         while (rel) {
             if (rel->customer->custId == custId) {
-                cout << curLink->linkId << "\t" <<
-                    curLink->linkName << "\t\t" <<
-                    rel->capacity << "\t\t" <<
-                    rel->start << " - " << rel->end << endl;
+                infoLink(curLink);
             }
             rel = rel->next;
         }
         curLink = curLink->next;
     }
     cout << endl;
-
 }
 
-void showCustByLink(List L, int linkId) {
-    Link *link = L.findLink(linkId);
+void infoRelation(Relation *rel) {
+    cout << rel->customer->custId << "\t" <<
+        rel->customer->name << "\t" <<
+        rel->capacity << " GB" << "\t\t" <<
+        rel->start << " - " <<
+        rel->end << endl;
+}
+
+void showRelationOfLink(Link *link) {
+    cout << "== CUSTOMER INFO FOR LINK " << link->linkName << " ==" << endl;
+    cout << "ID" << "\t" << "CUSTOMER NAME" << "\t" << "CAPACITY" << "\t" << "CONTRACT" << endl;
+    
     Relation *rel = link->relation;
-
-    cout << "== CUSTOMER INFO FOR LINK " << link->linkId << " ==" << endl;
-    cout << "ID" << "\t" << "CUSTOMER NAME" << "\t" << "CONTRACT" << endl;
-
-    float totalCapacity = 0;
-    int totalCustomer = 0;
-
     while (rel) {
-        cout << rel->customer->custId << "\t" <<
-            rel->customer->name << "\t" <<
-            rel->start << " - " <<
-            rel->end << endl;
-        totalCapacity += rel->capacity;
-        totalCustomer++;
+        infoRelation(rel); 
         rel = rel->next;
     }
     cout << endl;
     cout << "TOTAL" << "\t" << "CAPACITY" << endl;
-    cout << totalCustomer << "\t" << totalCapacity << endl;
+    cout << link->cntCustomer << "\t" << link->cntCapacity << " GB" << endl;
     cout << endl;
 }
 
+
+void showCustByLink(List L, int linkId) {
+    Link *link = L.findLink(linkId);
+    showRelationOfLink(link);
+}
+
 void showStat(List L) {
-    Link *curLink = L.link;
-    while (curLink) {
-        if (curLink->relation) {
-            showCustByLink(L, curLink->linkId);
-            cout << endl;
+    float totalCapacity = 0;
+    int totalCustomer = 0;
+
+    int linkTerisi = 0;
+    int linkKosong = 0; 
+
+    Link *link = L.link;
+    while (link) {
+        if (link->relation) {
+            showRelationOfLink(link);  
+            totalCapacity += link->cntCapacity;
+            totalCustomer += link->cntCustomer;
+            linkTerisi++;
+        } else {
+            linkKosong++;
         }
-        curLink = curLink->next;
+        link = link->next;
     }
+
+    // cout << endl;
+    cout << "== STATS ==" << endl;
+    cout << "LINK TERISI\tLINK KOSONG\tCUSTOMER\tCAPACITY" << endl;
+    cout << linkTerisi << "\t\t" << linkKosong << "\t\t" << totalCustomer << "\t\t" << totalCapacity << endl;
+    cout << endl;
 }

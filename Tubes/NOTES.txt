@@ -1,0 +1,32 @@
+- void List::addCustomer(int custId, string name);
+Melakukan alokasi struktur data customer baru dengan id dan nama customer dari parameter,
+lalu menambahkahkan elemen tersebut ke list customer dengan mekanisme insert first.
+
+- void List::addLink(int linkId, string name);
+Melakukan alokasi struktur data link baru dengan id dan nama link dari parameter,
+lalu menambahkahkan elemen tersebut ke list link dengan mekanisme insert first.
+
+- Customer *List::findCustomer(int custId);
+Melakukan perulangan pada setiap element customer dan membandingkan setiap id customer dengan customer id yang terdapat pada parameter,
+jika ketemu maka akan return node customer tersebut, jika tidak maka return NULL.
+
+- Link *List::findLink(int linkId);
+Melakukan perulangan pada setiap element link dan membandingkan setiap id link dengan link id yang terdapat pada parameter,
+jika ketemu maka akan return node link tersebut, jika tidak maka return NULL.
+
+- void showAllLink(List L);
+Melakukan perulangan pada setiap element customer dan mencetak atribut-atribut dari element link ke layar.
+
+- void showAllCustomer(List L);
+Melakukan perulangan pada setiap element customer dan mencetak atribut-atribut dari element customer ke layar.
+
+- void addContract(int linkId, int custId, string invId, float capacity, string start, string end, List & L);
+
+
+- void showLinkByCust(List, int);
+
+
+- void showCustByLink(List, int);
+
+
+- void showStat(List);

@@ -18,8 +18,10 @@ struct Relation {
 struct Link {
     int linkId;
     string linkName;
-    Link *next;
+    float cntCapacity;
+    int cntCustomer;
     Relation *relation;
+    Link *next;
 };
 
 struct List {
@@ -38,6 +40,8 @@ struct List {
     Link *findLink(int);
 
 };
+
+void infoRelation(Relation *rel);
 
 void showAllLink(List L);
 void showAllCustomer(List L);

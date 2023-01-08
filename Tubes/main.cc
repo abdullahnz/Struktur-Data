@@ -25,7 +25,7 @@ int main(int argc, char * argv[]) {
     for (int i = 10; i > 0; i--)
         L.addCustomer(i, "CUSTOMER_" + to_string(i));
     showAllCustomer(L);
-
+ 
     // tambah dan show data link
     for (int i = 11; i >= 0; i--)
         L.addLink(i + 1, LINKS[i]);
@@ -59,7 +59,9 @@ int main(int argc, char * argv[]) {
     addContract(1, 2, "INV101", 2.5, "FEB 2022", "FEB 2023", L);
     addContract(1, 1, "INV001", 1.0, "JAN 2022", "JAN 2023", L);
 
-    showCustByLink(L, 1);
+    for (int i = 1; i <= 12; i++)
+        showCustByLink(L, i);
+        
     showLinkByCust(L, 3);
     showStat(L);
 
