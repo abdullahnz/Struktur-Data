@@ -42,18 +42,6 @@ Link *List::findLink(int linkId) {
     return link;
 }
 
-void showAllLink(List L) {
-    Link *curLink = L.link;
-    cout << "== List All Links ==" << endl;
-    cout << "ID" << "\t" << "LINK" << endl;
-    while (curLink) {
-        cout << curLink->linkId << "\t" << curLink->linkName << endl;
-        curLink = curLink->next;
-    }
-    cout << endl;
-
-}
-
 void showAllCustomer(List L) {
     Customer *curCust = L.customer;
 
@@ -61,10 +49,22 @@ void showAllCustomer(List L) {
         "ID\tNAME" << endl;
 
     while (curCust) {
-        cout << curCust->custId << "\t" << curCust->name << endl;
+        cout << setw(2) << curCust->custId << "\t" << curCust->name << endl;
         curCust = curCust->next;
     }
     cout << endl;
+}
+
+void showAllLink(List L) {
+    Link *curLink = L.link;
+    cout << "== List All Links ==" << endl;
+    cout << "ID" << setw(10)  << "LINK" << endl;
+    while (curLink) {
+        cout << setw(2) << curLink->linkId << "\t" << curLink->linkName << endl;
+        curLink = curLink->next;
+    }
+    cout << endl;
+
 }
 
 void addContract(int linkId, int custId, string invId, float capacity, string start, string end, List &L) {
@@ -124,11 +124,10 @@ void showLinkByCust(List L, int custId) {
 }
 
 void infoRelation(Relation *rel) {
-    cout << rel->customer->custId << "\t" <<
-        rel->customer->name << "\t" <<
-        rel->capacity << " GB" << "\t\t" <<
-        rel->start << " - " <<
-        rel->end << endl;
+    cout << setw(2) << rel->customer->custId << "\t";
+    cout << setw(13) << (rel->customer->name.size() > 12 ? (rel->customer->name.substr(0, 11) + "..") :  rel->customer->name) << "\t";
+    cout << setw(5) << rel->capacity << " GB" << "\t";
+    cout << rel->start << " - " << rel->end << endl;
 }
 
 void showRelationOfLink(Link *link) {

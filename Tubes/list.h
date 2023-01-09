@@ -1,4 +1,6 @@
 #include <iostream>
+#include <iomanip>
+
 using namespace std;
 
 struct Customer {
@@ -30,8 +32,8 @@ struct List {
 
     // constructor
     List() {
-        this -> customer = NULL;
-        this -> link = NULL;
+        this->customer = NULL;
+        this->link = NULL;
     }
     // primitive
     void addCustomer(int, string);
